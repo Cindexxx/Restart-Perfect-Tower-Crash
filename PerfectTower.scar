@@ -1,0 +1,155 @@
+program New;
+
+
+//Waits to find the passed picture, then clicks +10x and +10y from the top left corner
+procedure WaitPic(PNG: string);
+  var
+  myX, myY: Integer;
+  bmp: TSCARBitmap;
+begin
+  bmp := TSCARBitmap.Create('');
+  bmp.LoadFromPng(PNG);
+  myX := -1;
+  While (myX = -1) do
+  begin
+    Wait(500);
+    FindBitmap(myX, myY, bmp, 0, 0, 1280, 1024)
+  end;
+  ClickMouse(myX + 10, myY + 10, mbLeft);
+end;
+
+//Waits to find the passed picture, then clicks +100x and +230y from the top left corner
+procedure WaitPic3(PNG: string);
+  var
+  myX, myY: Integer;
+  bmp: TSCARBitmap;
+begin
+  bmp := TSCARBitmap.Create('');
+  bmp.LoadFromPng(PNG);
+  myX := -1;
+  While (myX = -1) do
+  begin
+    Wait(500);
+    FindBitmap(myX, myY, bmp, 0, 0, 1280, 1024)
+  end;
+  ClickMouse(myX + 70, myY + 235, mbLeft);
+end;
+
+//Waits to find the passed picture, then double clicks +10 from the corner
+procedure WaitPic4(PNG: string);
+  var
+  myX, myY: Integer;
+  bmp: TSCARBitmap;
+begin
+  bmp := TSCARBitmap.Create('');
+  bmp.LoadFromPng(PNG);
+  myX := -1;
+  While (myX = -1) do
+  begin
+    Wait(500);
+    FindBitmap(myX, myY, bmp, 0, 0, 1280, 1024)
+  end;
+  ClickMouse(myX + 10, myY + 10, mbLeft);
+  ClickMouse(myX + 10, myY + 10, mbLeft);
+end;
+
+//Finds the passed picture
+procedure PicClick(PNG: string);
+  var
+  myX, myY: Integer;
+  bmp: TSCARBitmap;
+begin
+  bmp := TSCARBitmap.Create('');
+  bmp.LoadFromPng(PNG);
+  myX := -1;
+  myY := -1;
+  Wait(15000);
+  FindBitmap(myX, myY, bmp, 0, 0, 1280, 1024)
+  ClickMouse(myX + 10, myY + 10, mbLeft);
+  ClickMouse(myX + 10, myY + 10, mbLeft);
+end;
+
+//Same as WaitPic but right clicks
+procedure WaitPic2(PNG: string);
+  var
+  myX, myY: Integer;
+  bmp: TSCARBitmap;
+begin
+  bmp := TSCARBitmap.Create('');
+  bmp.LoadFromPng(ScriptPath + PNG);
+  myX := -1;
+  While (myX = -1) do
+  begin
+    Wait(500);
+    FindBitmap(myX, myY, bmp, 0, 0, 1280, 1024)
+  end;
+  ClickMouse(myX + 10, myY + 10, mbRight);
+end;
+
+
+//Clicks the Save button, waits for the next save button, types the path, and hits save again.
+procedure SaveAs(name: string);
+var
+  Save: TSCARBitmap;
+  myX, myY: Integer;
+begin
+  Save := TSCARBitmap.Create('');
+  Save.LoadFromPng(ScriptPath + 'SaveFile5.png');
+  WaitPic('SaveFile4.png');
+  
+  //Modified WaitPic to type save name before clicking on the found pic
+  myX := -1;
+  While (myX = -1) do
+  begin
+    Wait(500);
+    FindBitmap(myX, myY, Save, 0, 0, 1280, 1024)
+  end;
+  TypeTextEx('S:\Malware Software\XXX_Killers\' + name, False, False);
+  ClickMouse(myX + 10, myY + 10, mbLeft);
+  
+  WaitPic('Yes2.png');
+  Wait(1000);    
+end;
+
+procedure GoToURL(url: string);
+begin
+  ClickMouse(400, 70, mbLeft);
+  Wait(500);
+  TypeTextEx(url+#13, False, False);  
+end;    
+
+
+var
+  current: String;
+  repeating: Integer;
+begin
+  repeating := 1;
+  While (repeating = 1) do
+  begin  
+  WaitPic('C:\SCAR\ok.png');
+  Wait(2000);
+  WaitPic('C:\SCAR\refresh.png');
+  Wait(2000);                     
+  PicClick('C:\SCAR\yay.png');
+  PicClick('C:\SCAR\okay.png');     
+  Wait(2000);
+  WaitPic4('C:\SCAR\newRound.png');
+  Wait(2000);
+  WaitPic4('c:\SCAR\round.png');
+  Wait(2000);
+  TypeTextEx('11609', false, false);
+  Wait(1000);
+  ClickMouse(1179, 826, mbLeft)
+  ClickMouse(1179, 826, mbLeft);
+  //WaitPic('C:\SCAR\insane.png');
+  Wait(5000);
+  //WaitPic('C:\SCAR\x4.png');
+  ClickMouse(1284, 365, mbLeft)
+  Wait(2000);              
+  WaitPic('C:\SCAR\compress.png');
+  Writeln('Success!');   
+  Wait(30000);
+  end;
+end.
+
+
